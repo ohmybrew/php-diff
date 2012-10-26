@@ -1,4 +1,5 @@
 <?php
+
 namespace Wally;
 
 /**
@@ -8,89 +9,107 @@ namespace Wally;
  *
  * @package 	Wally
  * @author      Walter Dal Mut
+ * @author      (Forked tyler-king/php-diff) Tyler King <tyler.king@newfie.co>
  */
 class Diff
 {
-    /**
-     * Method to find longest common subsequences, based on
-     * http://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-     *
-     * @param string $s1
-     * @param string $s2
-     * @return array
-     * @see http://en.wikipedia.org/wiki/Longest_common_subsequence_problem
-     */
-    protected function _lsm($s1, $s2)
+    protected   $string_1,
+                $string_2,
+                $result;
+
+    public function __construct( )
+    {
+        $this->result   = [ ];
+
+        return $this;
+    }
+
+    public function setStringOne( $string )
+    {
+        $this->string_1 = explode( "\n", $string );
+
+        return $this;
+    }
+
+    public function getStringOne( $as_text = false )
+    {
+        return ( $as_text ) ? implode( "\n", $this->string_1 ) : $this->string_1;
+    }
+
+    public function setStringTwo( $string )
+    {
+        $this->string_2 = explode( "\n", $string );
+
+        return $this;
+    }
+
+    public function getStringTwo( $as_text = false )
+    {
+        return ( $as_text ) ? implode( "\n", $this->string_2 ) : $this->string_2;
+    }
+
+    protected function _lsm( )
     {
         $mStart = 0;
-        $mEnd   = count($s1) - 1;
+        $mEnd   = count( $this->string_1 ) - 1;
+
         $nStart = 0;
-        $nEnd   = count($s2) - 1;
-        $c = array();
-        for($i = -1; $i <= $mEnd; $i++) {
-            $c[$i] = array();
-            for($j = -1; $j <= $nEnd; $j++) {
-                $c[$i][$j] = 0;
+        $nEnd   = count( $this->string_2 ) - 1;
+
+        $c = [ ];
+        for( $i = -1; $i <= $mEnd; $i++ ) {
+            $c[ $i ] = [ ];
+            for( $j = -1; $j <= $nEnd; $j++ ) {
+                $c[ $i ][ $j ] = 0;
             }
         }
-        for($i = $mStart; $i <= $mEnd; $i++) {
-            for($j = $nStart; $j <= $nEnd; $j++) {
-                if ($s1[$i] == $s2[$j]) {
-                    $c[$i][$j] = $c[$i -1][$j - 1] + 1;
+
+        for( $i = $mStart; $i <= $mEnd; $i++ ) {
+            for( $j = $nStart; $j <= $nEnd; $j++ ) {
+                if( $this->string_1[ $i ] == $this->string_2[ $j ] ) {
+                    $c[ $i ][ $j ] = $c[ $i - 1 ][ $j - 1 ] + 1;
                 } else {
-                    $c[$i][$j] = max($c[$i][$j - 1], $c[$i - 1][$j]);
+                    $c[ $i ][ $j ] = max( $c[ $i ][ $j - 1 ], $c[ $i - 1 ][ $j ] );
                 }
             }
         }
+
         return $c;
     }
  
-    /**
-     * Simple formatting of the array created by the <tt>lsm</tt> method.
-     * Lines are printed as normal, lines that are only in the second string are
-     * prefixed with '+', lines that are only in the first string are prefixed
-     * with '-'
-     *
-     * @param array $c Output of <tt>lsm</tt> method
-     * @param string First string
-     * @param string Second String
-     * @param int $i
-     * @param int $j
-     * @return string
-     * @see lsm
-     */
-    protected function _printDiff($c, $s1, $s2, $i, $j)
-    {  
-        $diff = "";
-        if ($i >= 0 && $j >= 0 && $s1[$i] == $s2[$j]) {
-            $diff .= $this->_printDiff($c, $s1, $s2, $i - 1, $j - 1);
-            $diff .= "  " . $s1[$i] . PHP_EOL;
+    protected function _diff( $c, $s1, $s2, $i, $j )
+    {
+        if( $i >= 0 && $j >= 0 && $s1[ $i ] == $s2[ $j ] ) {
+            $this->result       = array_merge( $this->result, $this->_diff( $c, $s1, $s2, $i - 1, $j - 1 ) );
+            $this->result[ ]    = [ 'l' => $s1[ $i ] ];
         } else {
-            if ($j >= 0 && ($i == -1 || $c[$i][$j - 1] >= $c[$i - 1][$j])) {
-                $diff .= $this->_printDiff($c, $s1, $s2, $i, $j - 1);
-                $diff .= "+ " . $s2[$j] . PHP_EOL;
-            } else if ($i >= 0 && ($j == -1 || $c[$i][$j - 1] < $c[$i - 1][$j])) {
-                $diff .= $this->_printDiff($c, $s1, $s2, $i - 1, $j);
-                $diff .= "- " . $s1[$i] . PHP_EOL;
+            if( $j >= 0 && ( $i == -1 || $c[ $i ][ $j - 1 ] >= $c[ $i - 1 ][ $j ] ) ) {
+                $this->result       = array_merge( $this->result, $this->_diff( $c, $s1, $s2, $i, $j - 1 ) );
+                $this->result[ ]    = [ '+' => $s2[ $j ] ];
+            } else if( $i >= 0 && ( $j == -1 || $c[ $i ][ $j - 1 ] < $c[ $i - 1 ][ $j ] ) ) {
+                $this->result       = array_merge( $this->result, $this->_diff( $c, $s1, $s2, $i - 1, $j ) );
+                $this->result[ ]    = [ '-' => $s1[ $i ] ];
             }
         }
- 
-        return $diff;
+
+        return $this->result;
     }
- 
-   
-    /**
-     * Given two strings, returns a string in the format describe by
-     * Wally\Diff::printDiff
-     *
-     * @param string $s1 First String
-     * @param string $s2 Second String 
-     * @return string
-     */
-    public function getDiff($s1, $s2)
+
+    public function execute( )
     {
-        $s1 = explode("\n", $s1);
-        $s2 = explode("\n", $s2);
-        return $this->_printDiff($this->_lsm($s1, $s2), $s1, $s2, count($s1) - 1, count($s2) - 1);
+        $this->_diff(
+            $this->_lsm( ),
+            $this->string_1,
+            $this->string_2,
+            count( $this->string_1 ) - 1,
+            count( $this->string_2 ) - 1
+        );
+
+        return $this;
+    }
+
+    public function getResult( )
+    {
+        return $this->result;
     }
 }
