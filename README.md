@@ -1,67 +1,104 @@
-# Wally Diff ![Project Status](http://stillmaintained.com/wdalmut/php-diff.png)  - [![Build Status](https://secure.travis-ci.org/wdalmut/php-diff.png)](http://travis-ci.org/wdalmut/php-diff?branch=master)
+# PHP Diff
+
+This library simply gets the differences between strings with a few options to output the changes into raw `array`, `xml` or `text` formats.
+
+## Fetch
+
+The recommended way to install PHP Difff is [through composer](http://packagist.org).
+
+Just create a composer.json file for your project:
+
+```JSON
+{
+    "minimum-stability" : "dev",
+    "require": {
+        "tyler-king/php-diff": "dev-master"
+    }
+}
+```
+
+And run these two commands to install it:
+
+    $ curl -s http://getcomposer.org/installer | php
+    $ php composer.phar install
+
+Now you can add the autoloader, and you will have access to the library:
 
 ```php
 <?php
-require_once __DIR__ .'/../src/Wally/Diff.php';
+require 'vendor/autoload.php';
+```
+
+## Usage
+
+```php
+<?php
 
 use Wally\Diff;
+use Wally\Format\Text;
 
-$m = new Diff();
-
-echo $m->getDiff('Hi, my name is Walter','Hi, my name is Laura');
-```
-
-The output is:
-
-```
-- Hi, my name is Walter
-+ Hi, my name is Laura
-```
-
-## Complex input
-
-See a more complex example:
-
-```php
-<?php
-echo $m->getDiff(<<<EOF
-Lorem ipsum dolor sit amet, 
-consectetur adipiscing elit. 
-Mauris ullamcorper nisi at enim adipiscing vehicula. 
-Pellentesque accumsan rutrum porta. 
-Sed interdum tortor urna, et condimentum orci. 
-Vivamus condimentum ultricies justo vitae lobortis. 
-Suspendisse blandit consectetur pulvinar. 
-Ut vitae mauris quis enim convallis elementum. 
-Vestibulum id dictum nisl.
-EOF
-,<<<EOF
-Lorem ipsum dolor sit amet, 
-consectetur adipiscing elit. 
-Mauris ullamcorper nisi at enim adipiscing vehicula. 
-Pellentesque accumsan rutrum porta. 
-Sed interdum cake urna, et condimentum orci. 
-Vivamus condimentum ultricies justo vitae lobortis. 
-Suspendisse blandit consectetur plumbe. 
-Ut vitae mauris quis enim convallis elementum. 
-Vestibulum id dictatum nisl.
+$diff = new Diff;
+$diff->setStringOne(
+<<<EOF
+one
+two
+three
 EOF
 );
+$diff->setStringTwo(
+<<<EOF
+one
+two
+threes
+six
+EOF
+);
+$diff->execute( );
+
+$result = $diff->getResult( ); // This outputs a raw array of line, delete and insert operations.
+
+$format = new Text( $result );
+$format->execute( );
+
+header( 'Content-Type: ' . $format->getFormatMime( ) );
+print $format->getResult( );
 ```
 
 The output is:
 
 ```
-  Lorem ipsum dolor sit amet, 
-  consectetur adipiscing elit. 
-  Mauris ullamcorper nisi at enim adipiscing vehicula. 
-  Pellentesque accumsan rutrum porta. 
-- Sed interdum tortor urna, et condimentum orci. 
-+ Sed interdum cake urna, et condimentum orci. 
-  Vivamus condimentum ultricies justo vitae lobortis. 
-- Suspendisse blandit consectetur pulvinar. 
-+ Suspendisse blandit consectetur plumbe. 
-  Ut vitae mauris quis enim convallis elementum. 
-- Vestibulum id dictum nisl.
-+ Vestibulum id dictatum nisl.
+one
+two
+- three
++ threes
++ six
+```
+
+Above was the use of the `text` output. You may also output the raw `array` via `$diff->getResult()` or you can ouput in XML format like below:
+
+```php
+use Wally\Format\XML;
+
+...
+
+$result = $diff->getResult( );
+
+$format = new XML( $result );
+$format->execute( );
+
+header( 'Content-Type: ' . $format->getFormatMime( ) );
+print $format->getResult( );
+```
+
+The output is:
+
+```
+<?xml version="1.0" encoding="UTF-8" ?>
+<data>
+<line>one</line>
+<line>two</line>
+<delete>three</delete>
+<insert>threes</insert>
+<insert>six</insert>
+</data>
 ```

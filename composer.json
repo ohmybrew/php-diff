@@ -1,10 +1,10 @@
 {
-    "name": "wdalmut/diff",
+    "name": "tyler-king/php-diff",
     "description": "LSM - Longest Common Subsequence",
     "version":"1.0.0",
     "type":"library",
     "keywords":["lsm","longest","common","subsequence"],
-    "time":"2012-09-04",
+    "time":"2012-10-26",
     "license":"MIT",
     "authors": [
         {
@@ -12,21 +12,20 @@
             "email":"walter.dalmut@corley.it",
             "homepage":"http://walterdalmut.com",
             "role":"Developer"
+        },
+        {
+            "name":"Tyler King",
+            "email":"tyler.king@gmail.com",
+            "role":"Fork"
         }
     ],
     "support": {
-        "email":"walter.dalmut@gmail.com"
+        "email":"tyler.king@gmail.com"
     },
     "require": {
-        "php": ">=5.3.3"
+        "php": ">=5.4.0"
     },
     "autoload": {
         "psr-0": ["src/"]
-    },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/wdalmut/php-diff.git"
-        }
-    ]
+    }
 }
