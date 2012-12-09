@@ -9,29 +9,29 @@ class XML implements FormatInterface
     private $input,
             $result;
 
-    public function __construct( $input )
+    public function __construct($input)
     {
-        $this->input    = $input;
-        $this->result   = '';
+        $this->input   = $input;
+        $this->result  = '';
 
         return $this;
     }
 
-    public function execute( )
+    public function execute()
     {
         $result = "<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<data>\n";
-        foreach( $this->input AS $key => $value ) {
-            $k = key( $value );
-            $v = $value[ $k ];
+        foreach ($this->input as $key => $value) {
+            $k = key($value);
+            $v = $value[$k];
 
-            switch( $k ) {
-                case '-' :
+            switch ($k) {
+                case '-':
                     $result .= "<delete>{$v}</delete>\n";
                     break;
-                case '+' :
+                case '+':
                     $result .= "<insert>{$v}</insert>\n";
                     break;
-                case 'l' :
+                case 'l':
                     $result .= "<line>{$v}</line>\n";
                     break;
             }
@@ -42,17 +42,17 @@ class XML implements FormatInterface
         return $this;
     }
 
-    public function getResult( )
+    public function getResult()
     {
         return $this->result;
     }
 
-    public function getFormatName( )
+    public function getFormatName()
     {
         return 'xml';
     }
 
-    public function getFormatMime( )
+    public function getFormatMime()
     {
         return 'text/xml';
     }

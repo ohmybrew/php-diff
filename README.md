@@ -53,15 +53,15 @@ threes
 six
 EOF
 );
-$diff->execute( );
+$diff->execute();
 
-$result = $diff->getResult( ); // This outputs a raw array of line, delete and insert operations.
+$result = $diff->getResult(); // This outputs a raw array of line, delete and insert operations.
 
-$format = new Text( $result );
-$format->execute( );
+$format = new Text($result);
+$format->execute();
 
-header( 'Content-Type: ' . $format->getFormatMime( ) );
-print $format->getResult( );
+header('Content-Type: '.$format->getFormatMime());
+print $format->getResult();
 ```
 
 The output is:
@@ -81,13 +81,13 @@ use Wally\Format\XML;
 
 ...
 
-$result = $diff->getResult( );
+$result = $diff->getResult();
 
-$format = new XML( $result );
-$format->execute( );
+$format = new XML($result);
+$format->execute();
 
-header( 'Content-Type: ' . $format->getFormatMime( ) );
-print $format->getResult( );
+header('Content-Type: '.$format->getFormatMime());
+print $format->getResult();
 ```
 
 The output is:

@@ -9,50 +9,50 @@ class Text implements FormatInterface
     private $input,
             $result;
 
-    public function __construct( $input )
+    public function __construct($input)
     {
-        $this->input    = $input;
-        $this->result   = '';
+        $this->input  = $input;
+        $this->result = '';
 
         return $this;
     }
 
-    public function execute( )
+    public function execute()
     {
         $result = '';
-        foreach( $this->input AS $key => $value ) {
-            $k = key( $value );
-            $v = $value[ $k ];
+        foreach ($this->input as $key => $value) {
+            $k = key($value);
+            $v = $value[$k];
 
-            switch( $k ) {
-                case '-' :
+            switch ($k) {
+                case '-':
                     $result .= "- {$v}\n";
                     break;
-                case '+' :
+                case '+':
                     $result .= "+ {$v}\n";
                     break;
-                case 'l' :
+                case 'l':
                     $result .= "{$v}\n";
                     break;
             }
         }
 
-        $this->result = trim( $result );
+        $this->result = trim($result);
 
         return $this;
     }
 
-    public function getResult( )
+    public function getResult()
     {
         return $this->result;
     }
 
-    public function getFormatName( )
+    public function getFormatName()
     {
         return 'text';
     }
 
-    public function getFormatMime( )
+    public function getFormatMime()
     {
         return 'text/plain';
     }
