@@ -36,8 +36,8 @@ require 'vendor/autoload.php';
 ```php
 <?php
 
-use Wally\Diff;
-use Wally\Format\Text;
+use Wally\PHPDiff\Diff;
+use Wally\PHPDiff\Format\Text;
 
 $diff = new Diff;
 $diff->setStringOne(
@@ -79,7 +79,7 @@ two
 Above was the use of the `text` output. You may also output the raw `array` via `$diff->getResult()` or you can ouput in XML format like below:
 
 ```php
-use Wally\Format\XML;
+use Wally\PHPDiff\Format\XML;
 
 ...
 
