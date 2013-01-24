@@ -3,4 +3,4 @@
 composer.lock
 cov/
 vendor/
-bin/
+bin
