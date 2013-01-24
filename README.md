@@ -2,6 +2,8 @@
 
 This library simply gets the differences between strings with a few options to output the changes into raw `array`, `xml` or `text` formats.
 
+[![Build Status](https://secure.travis-ci.org/tyler-king/php-diff.png?branch=master)](http://travis-ci.org/tyler-king/php-diff)
+
 ## Fetch
 
 The recommended way to install PHP Difff is [through composer](http://packagist.org).
