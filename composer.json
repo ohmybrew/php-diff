@@ -1,5 +1,5 @@
 {
-    "name": "tyler-king/php-diff",
+    "name": "ohmybrew/php-diff",
     "description": "LSM - Longest Common Subsequence",
     "type":"library",
     "keywords":["lsm", "longest", "common", "subsequence"],
@@ -21,7 +21,8 @@
         "php": ">=5.4.0"
     },
     "require-dev": {
-        "phpunit/phpunit": "3.7.*"
+        "phpunit/phpunit": "3.7.*",
+        "satooshi/php-coveralls": "~1.0"
     },
     "autoload": {
         "psr-0": {

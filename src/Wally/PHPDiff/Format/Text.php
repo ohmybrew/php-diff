@@ -1,6 +1,4 @@
-<?php
-
-namespace Wally\PHPDiff\Format;
+<?php namespace Wally\PHPDiff\Format;
 
 use Wally\PHPDiff\Format\FormatInterface;
 
@@ -11,7 +9,7 @@ class Text implements FormatInterface
 
     public function __construct(array $input)
     {
-        $this->input  = $input;
+        $this->input = $input;
         $this->result = '';
 
         return $this;

@@ -1,6 +1,4 @@
-<?php
-
-namespace Wally\PHPDiff\Format;
+<?php namespace Wally\PHPDiff\Format;
 
 use Wally\PHPDiff\Format\FormatInterface;
 
@@ -11,8 +9,8 @@ class XML implements FormatInterface
 
     public function __construct(array $input)
     {
-        $this->input   = $input;
-        $this->result  = '';
+        $this->input = $input;
+        $this->result = '';
 
         return $this;
     }

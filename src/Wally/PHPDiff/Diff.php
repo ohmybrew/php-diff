@@ -1,6 +1,4 @@
-<?php
-
-namespace Wally\PHPDiff;
+<?php namespace Wally\PHPDiff;
 
 /**
  * This class provides a simple diff function.
@@ -69,10 +67,10 @@ class Diff
     protected function _lsm()
     {
         $mStart = 0;
-        $mEnd   = count($this->string_1) - 1;
+        $mEnd = count($this->string_1) - 1;
 
         $nStart = 0;
-        $nEnd   = count($this->string_2) - 1;
+        $nEnd = count($this->string_2) - 1;
 
         $c = [];
         for ($i = -1; $i <= $mEnd; $i++) {

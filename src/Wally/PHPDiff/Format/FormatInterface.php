@@ -1,6 +1,4 @@
-<?php
-
-namespace Wally\PHPDiff\Format;
+<?php namespace Wally\PHPDiff\Format;
 
 interface FormatInterface
 {

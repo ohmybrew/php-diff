@@ -2,34 +2,15 @@
 
 This library simply gets the differences between strings with a few options to output the changes into raw `array`, `xml` or `text` formats.
 
-[![Build Status](https://secure.travis-ci.org/tyler-king/php-diff.png?branch=master)](http://travis-ci.org/tyler-king/php-diff)
+[![Build Status](https://secure.travis-ci.org/ohmybrew/php-diff.png?branch=master)](http://travis-ci.org/ohmybrew/php-diff)
+[![Coverage Status](https://coveralls.io/repos/github/ohmybrew/php-diff/badge.svg?branch=master)](https://coveralls.io/github/ohmybrew/php-diff?branch=master)
+[![License](https://poser.pugx.org/ohmybrew/php-diff/license)](https://packagist.org/packages/ohmybrew/php-diff)
 
-## Fetch
+## Installation
 
-The recommended way to install PHP Difff is [through composer](http://packagist.org).
+The recommended way to install is [through composer](http://packagist.org).
 
-Just create a composer.json file for your project:
-
-```JSON
-{
-    "minimum-stability" : "dev",
-    "require": {
-        "tyler-king/php-diff": "dev-master"
-    }
-}
-```
-
-And run these two commands to install it:
-
-    $ curl -s http://getcomposer.org/installer | php
-    $ php composer.phar install
-
-Now you can add the autoloader, and you will have access to the library:
-
-```php
-<?php
-require 'vendor/autoload.php';
-```
+    $ composer require ohmybrew/php-diff
 
 ## Usage
 
