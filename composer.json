@@ -1,5 +1,5 @@
 {
-    "name": "ohmybrew/php-diff",
+    "name": "osiset/php-diff",
     "description": "LSM - Longest Common Subsequence",
     "type":"library",
     "keywords":["lsm", "longest", "common", "subsequence"],

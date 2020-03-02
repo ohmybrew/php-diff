@@ -2,15 +2,15 @@
 
 This library simply gets the differences between strings with a few options to output the changes into raw `array`, `xml` or `text` formats.
 
-[![Build Status](https://secure.travis-ci.org/ohmybrew/php-diff.png?branch=master)](http://travis-ci.org/ohmybrew/php-diff)
-[![Coverage Status](https://coveralls.io/repos/github/ohmybrew/php-diff/badge.svg?branch=master)](https://coveralls.io/github/ohmybrew/php-diff?branch=master)
-[![License](https://poser.pugx.org/ohmybrew/php-diff/license)](https://packagist.org/packages/ohmybrew/php-diff)
+[![Build Status](https://secure.travis-ci.org/osiset/php-diff.png?branch=master)](http://travis-ci.org/osiset/php-diff)
+[![Coverage Status](https://coveralls.io/repos/github/osiset/php-diff/badge.svg?branch=master)](https://coveralls.io/github/osiset/php-diff?branch=master)
+[![License](https://poser.pugx.org/osiset/php-diff/license)](https://packagist.org/packages/osiset/php-diff)
 
 ## Installation
 
 The recommended way to install is [through composer](http://packagist.org).
 
-    $ composer require ohmybrew/php-diff
+    composer require osiset/php-diff
 
 ## Usage
 
